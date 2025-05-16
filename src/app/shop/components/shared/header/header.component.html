@@ -5,13 +5,17 @@
       <ul class="flex space-x-4">
         <li><a href="#" class="hover:underline">Home</a></li>
         <li><a href="#" class="hover:underline">Products</a></li>
+        @if (userStore.isAuthenticated() && userStore.role() == 'Seller') {
+        <li><a href="#" class="hover:underline">Add Product</a></li>
+        }
         <li><a href="#" class="hover:underline">Contact</a></li>
       </ul>
     </nav>
     <div
       class="h-12 w-12 !rounded-full bg-amber-500 text-2xl flex items-center justify-center"
     >
-      C
+      {{ userStore.role()?.charAt(0) }}
     </div>
+    <div><button (click)="userStore.logout()">Logout</button></div>
   </div>
 </header>
