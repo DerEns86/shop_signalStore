@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserStore } from '../../auth.store';
+import { UserRole } from '../../user.model';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +13,9 @@ export class LoginComponent {
   readonly userStore = inject(UserStore);
   readonly router = inject(Router);
 
-  handleLogin(userRole: 'Customer' | 'Seller') {
+  readonly UserRole = UserRole;
+
+  handleLogin(userRole: UserRole) {
     this.userStore.login(userRole);
     console.log(this.userStore.getUser());
     this.router.navigateByUrl('/shop');

@@ -1,8 +1,9 @@
 import { patchState, signalStore, withMethods, withState } from '@ngrx/signals';
+import { UserRole } from './user.model';
 
 type UserState = {
   isAuthenticated: boolean;
-  role: 'Customer' | 'Seller' | undefined;
+  role: UserRole | undefined;
 };
 
 const initialState: UserState = {
@@ -14,7 +15,7 @@ export const UserStore = signalStore(
   { providedIn: 'root' },
   withState(initialState),
   withMethods((store) => ({
-    login(role: 'Customer' | 'Seller') {
+    login(role: UserRole) {
       patchState(store, { role: role, isAuthenticated: true });
     },
     logout() {
