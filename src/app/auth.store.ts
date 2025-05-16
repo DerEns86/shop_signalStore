@@ -1,5 +1,5 @@
 import { patchState, signalStore, withMethods, withState } from '@ngrx/signals';
-import { UserRole } from './user.model';
+import { UserRole } from './models/user.model';
 
 type UserState = {
   isAuthenticated: boolean;

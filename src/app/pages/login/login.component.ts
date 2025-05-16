@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserStore } from '../../auth.store';
-import { UserRole } from '../../user.model';
+import { UserRole } from '../../models/user.model';
 
 @Component({
   selector: 'app-login',
