@@ -1,1 +1,3 @@
-<app-product-list />
+<button (click)="handleAddProduct()">Add Product</button>
+
+<app-product-list [products]="products()" />
