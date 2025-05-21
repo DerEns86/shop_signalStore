@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { computed, inject, Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Product } from '../../models/product.model';
 
 @Injectable({
@@ -10,7 +10,7 @@ export class ProductApiService {
 
   private readonly apiUrl = 'https://fakestoreapi.com/products';
 
-  fetchProducts() {
+  getProducts() {
     return this.http.get<Product[]>(this.apiUrl);
   }
 
