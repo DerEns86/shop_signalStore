@@ -1,7 +1,6 @@
 import {
   patchState,
   signalStore,
-  withComputed,
   withHooks,
   withMethods,
   withState,
@@ -28,27 +27,6 @@ const initialState: ProductState = {
 export const ProductStore = signalStore(
   withState(initialState),
   withMethods((store, productService = inject(ProductApiService)) => ({
-    // loadProducts: rxMethod<void>(
-    //   pipe(
-    //     tap(() => patchState(store, { isLoading: true, error: null })),
-    //     switchMap(() =>
-    //       productService.getProducts().pipe(
-    //         tap((products) =>
-    //           patchState(store, { products, isLoading: false })
-    //         ),
-    //         catchError((err) => {
-    //           console.error('Error loading products:', err);
-    //           patchState(store, {
-    //             error: err.message || 'Produkte konnten nicht geladen werden.',
-    //             isLoading: false,
-    //           });
-    //           return of([]);
-    //         })
-    //       )
-    //     )
-    //   )
-    // ),
-
     loadProducts: rxMethod<void>(
       pipe(
         tap(() => patchState(store, { isLoading: true, error: null })),
@@ -72,6 +50,61 @@ export const ProductStore = signalStore(
         )
       )
     ),
+
+    addProduct: rxMethod<Product>(
+      pipe(
+        tap(() => patchState(store, { isLoading: true, error: null })),
+        switchMap((productToAdd) =>
+          productService.addProduct(productToAdd).pipe(
+            tap((newProduct) => {
+              patchState(store, {
+                products: [newProduct, ...store.products()],
+                isLoading: false,
+              });
+            }),
+            catchError((err) => {
+              console.error('Error adding product:', err);
+              patchState(store, {
+                error:
+                  err.message || 'Produkt konnte nicht hinzugefügt werden.',
+                isLoading: false,
+              });
+              return of(null);
+            })
+          )
+        )
+      )
+    ),
+
+    updateProduct: rxMethod<Product>(
+      pipe(
+        tap(() => patchState(store, { isLoading: true, error: null })),
+        switchMap((productToUpdate) =>
+          productService.updateProduct(productToUpdate).pipe(
+            tap((updatedProduct) => {
+              const updatedProducts = store
+                .products()
+                .map((p) => (p.id === updatedProduct.id ? updatedProduct : p));
+
+              patchState(store, {
+                products: updatedProducts,
+                isLoading: false,
+              });
+            }),
+            catchError((err) => {
+              console.error('Error updating product:', err);
+              patchState(store, {
+                error:
+                  err.message || 'Produkt konnte nicht aktualisiert werden.',
+                isLoading: false,
+              });
+              return of(null);
+            })
+          )
+        )
+      )
+    ),
+
     deleteProduct: rxMethod<number>(
       pipe(
         tap(() => patchState(store, { isLoading: true, error: null })),

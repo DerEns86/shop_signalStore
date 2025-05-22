@@ -1,29 +1,21 @@
-import { Component, computed, inject, OnInit } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { ProductListComponent } from './product-list/product-list.component';
 import { ProductStore } from '../../stores/product.store';
-import { Product } from '../../../models/product.model';
+import { UserStore } from '../../../auth.store';
+import { AddProductComponent } from './add-product/add-product.component';
 
 @Component({
   selector: 'app-shop',
-  imports: [ProductListComponent],
-  providers: [ProductStore],
+  imports: [ProductListComponent, AddProductComponent],
   templateUrl: './shop.component.html',
   styleUrl: './shop.component.css',
 })
 export class ShopComponent {
+  userStore = inject(UserStore);
   productStore = inject(ProductStore);
-
-  products = computed(() => this.productStore.getProducts());
+  showAddProduct = signal<boolean>(false);
 
   handleAddProduct() {
-    const product: Product = {
-      id: 4000,
-      title: 'New Product',
-      price: 33,
-      description: 'New Product Description',
-      category: 'New Category',
-      image: 'https://jsonurl.org/img/logo.png',
-    };
-    this.productStore.addProduct(product);
+    this.showAddProduct.set(!this.showAddProduct());
   }
 }

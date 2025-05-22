@@ -3,12 +3,14 @@
     <h1 class="text-xl font-bold">Shop</h1>
     <nav>
       <ul class="flex space-x-4">
-        <li><a href="#" class="hover:underline">Home</a></li>
-        <li><a href="#" class="hover:underline">Products</a></li>
+        <li><a routerLink="/shop" class="hover:underline">Shop</a></li>
         @if (userStore.isAuthenticated() && userStore.role() == 'Seller') {
-        <li><a href="#" class="hover:underline">Add Product</a></li>
+        <li>
+          <a routerLink="/shop/add-product" class="hover:underline"
+            >Add Product</a
+          >
+        </li>
         }
-        <li><a href="#" class="hover:underline">Contact</a></li>
       </ul>
     </nav>
     <div

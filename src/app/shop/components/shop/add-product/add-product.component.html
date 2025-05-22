@@ -1,0 +1,77 @@
+<form
+  [formGroup]="addProductForm"
+  (ngSubmit)="handleSubmit()"
+  class="max-w-lg mx-auto bg-white p-8 rounded-lg shadow-md space-y-6"
+>
+  <h2 class="text-2xl font-bold text-center text-blue-700 mb-4">
+    Produkt hinzufügen
+  </h2>
+
+  <div class="space-y-4">
+    <div>
+      <label class="block text-sm font-medium text-gray-700 mb-1" for="title"
+        >Titel</label
+      >
+      <input
+        id="title"
+        formControlName="title"
+        type="text"
+        class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+      />
+    </div>
+    <div>
+      <label class="block text-sm font-medium text-gray-700 mb-1" for="price"
+        >Preis</label
+      >
+      <input
+        id="price"
+        formControlName="price"
+        type="number"
+        step="0.01"
+        class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+      />
+    </div>
+    <div>
+      <label
+        class="block text-sm font-medium text-gray-700 mb-1"
+        for="description"
+        >Beschreibung</label
+      >
+      <textarea
+        id="description"
+        formControlName="description"
+        rows="3"
+        class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+      ></textarea>
+    </div>
+    <div>
+      <label class="block text-sm font-medium text-gray-700 mb-1" for="image"
+        >Bild-URL</label
+      >
+      <input
+        id="image"
+        formControlName="image"
+        type="text"
+        class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+      />
+    </div>
+    <div>
+      <label class="block text-sm font-medium text-gray-700 mb-1" for="category"
+        >Kategorie</label
+      >
+      <input
+        id="category"
+        formControlName="category"
+        type="text"
+        class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+      />
+    </div>
+  </div>
+
+  <button
+    type="submit"
+    class="w-full py-2 px-4 bg-blue-600 text-white font-semibold rounded hover:bg-blue-700 transition-colors"
+  >
+    {{ isInEditMode() ? "Änderungen speichern" : "Produkt hinzufügen" }}
+  </button>
+</form>
