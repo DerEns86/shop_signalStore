@@ -1,0 +1,27 @@
+@if (userStore.role() == 'Seller') {
+<button
+  (click)="handleAddProduct()"
+  class="m-4 px-4 py-4 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors shadow"
+>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    class="h-5 w-5"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+  >
+    <path
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="2"
+      d="M12 4v16m8-8H4"
+    />
+  </svg>
+</button>
+@if (showAddProduct()) {
+<app-add-product></app-add-product>} } @if (productStore.isLoading()) {
+<div>
+  <p>Produkte werden geladen...</p>
+</div>
+}
+<app-product-list [products]="productStore.products()" />
