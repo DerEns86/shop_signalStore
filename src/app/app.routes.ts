@@ -4,11 +4,11 @@ import { LoginComponent } from './pages/login/login.component';
 export const routes: Routes = [
   {
     path: '',
-    component: LoginComponent,
-  },
-  {
-    path: 'shop',
     loadChildren: () =>
       import('./shop/shop.routes').then((mod) => mod.shopRoutes),
+  },
+  {
+    path: 'login',
+    component: LoginComponent,
   },
 ];
