@@ -6,7 +6,7 @@ import { ProductStore } from './stores/product.store';
 @Component({
   selector: 'app-shop-layout',
   imports: [RouterOutlet, HeaderComponent],
-  providers: [ProductStore],
+  providers: [],
   templateUrl: './shop-layout.component.html',
 })
 export class ShopLayoutComponent {}
