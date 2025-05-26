@@ -1,0 +1,8 @@
+<div>
+  <h2>Warenkorb</h2>
+  @for (item of cartStore.items(); track item.product.id) {
+  <div>{{ item.product.title }} x {{ item.quantity }}</div>
+  }
+
+  <div>Gesamt: {{ cartStore.totalPrice() }} €</div>
+</div>
