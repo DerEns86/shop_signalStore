@@ -25,6 +25,9 @@ const initialState: ProductState = {
 };
 
 export const ProductStore = signalStore(
+  {
+    providedIn: 'root',
+  },
   withState(initialState),
   withMethods((store, productService = inject(ProductApiService)) => ({
     loadProducts: rxMethod<void>(

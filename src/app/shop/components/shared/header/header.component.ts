@@ -17,4 +17,8 @@ export class HeaderComponent {
 
     this.router.navigateByUrl('/');
   }
+
+  handleLogin() {
+    this.router.navigateByUrl('/login');
+  }
 }

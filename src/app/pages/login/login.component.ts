@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserStore } from '../../auth.store';
 import { UserRole } from '../../models/user.model';
@@ -8,6 +8,7 @@ import { UserRole } from '../../models/user.model';
   imports: [],
   providers: [],
   templateUrl: './login.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginComponent {
   readonly userStore = inject(UserStore);
@@ -18,6 +19,6 @@ export class LoginComponent {
   handleLogin(userRole: UserRole) {
     this.userStore.login(userRole);
     console.log(this.userStore.getUser());
-    this.router.navigateByUrl('/shop');
+    this.router.navigateByUrl('/');
   }
 }

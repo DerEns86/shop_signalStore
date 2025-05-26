@@ -1,4 +1,11 @@
-import { Component, effect, inject, OnDestroy, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  effect,
+  inject,
+  OnDestroy,
+  signal,
+} from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ProductStore } from '../../../stores/product.store';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -7,6 +14,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   selector: 'app-add-product',
   imports: [ReactiveFormsModule],
   templateUrl: './add-product.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AddProductComponent implements OnDestroy {
   router = inject(Router);
@@ -46,7 +54,7 @@ export class AddProductComponent implements OnDestroy {
     } else if (this.addProductForm.valid && this.isInEditMode()) {
       this.updateProduct();
     }
-    this.router.navigateByUrl('/shop');
+    this.router.navigateByUrl('/');
   }
 
   saveProduct() {

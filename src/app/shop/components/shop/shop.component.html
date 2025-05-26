@@ -1,27 +1,22 @@
 @if (userStore.role() == 'Seller') {
-<button
-  (click)="handleAddProduct()"
-  class="m-4 px-4 py-4 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors shadow"
->
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    class="h-5 w-5"
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
-  >
-    <path
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      stroke-width="2"
-      d="M12 4v16m8-8H4"
-    />
-  </svg>
+<button (click)="handleAddProduct()">
+  <span class="material-icons-round">add</span>
 </button>
 @if (showAddProduct()) {
 <app-add-product></app-add-product>} } @if (productStore.isLoading()) {
 <div>
   <p>Produkte werden geladen...</p>
+</div>
+} @if (userStore.role() == 'Customer') {
+<app-cart #cart></app-cart>
+<div
+  (click)="cart.toggleCart()"
+  class="h-12 w-12 !rounded-full bg-amber-500 text-2xl flex items-center justify-center cursor-pointer fixed bottom-4 right-4"
+>
+  <span class="material-icons-outlined">shopping_cart</span>
+  @if (cartStore.totalQuantity() > 0) {
+  <span>{{ cartStore.totalQuantity() }}</span>
+  }
 </div>
 }
 <app-product-list [products]="productStore.products()" />
