@@ -11,21 +11,23 @@ import { computed } from '@angular/core';
 
 type CartState = {
   items: CartItem[];
-  totalQuantity: number;
-  totalPrice: number;
 };
 
 const initialState: CartState = {
   items: [],
-  totalQuantity: 0,
-  totalPrice: 0,
 };
 
 export const CartStore = signalStore(
   withState(initialState),
-  withComputed(() => ({
+  withComputed((store) => ({
     itemPrice: computed(
       () => (item: CartItem) => item.product.price * item.quantity
+    ),
+    totalQuantity: computed(() =>
+      store.items().reduce((sum, i) => sum + i.quantity, 0)
+    ),
+    totalPrice: computed(() =>
+      store.items().reduce((sum, i) => sum + i.quantity * i.product.price, 0)
     ),
   })),
   withMethods((store) => ({
@@ -34,15 +36,44 @@ export const CartStore = signalStore(
         .items()
         .find((i) => i.product.id === item.product.id);
       if (existingItem) {
-        existingItem.quantity += item.quantity;
+        patchState(store, {
+          items: store
+            .items()
+            .map((i) =>
+              i.product.id === item.product.id
+                ? { ...i, quantity: i.quantity + item.quantity }
+                : i
+            ),
+        });
       } else {
         patchState(store, { items: [...store.items(), item] });
       }
+    },
+    increaseQuantity: (productId: number) => {
       patchState(store, {
-        totalQuantity: store.totalQuantity() + item.quantity,
+        items: store
+          .items()
+          .map((item) =>
+            item.product.id === productId
+              ? { ...item, quantity: item.quantity + 1 }
+              : item
+          ),
       });
+    },
+    decreaseQuantity: (productId: number) => {
       patchState(store, {
-        totalPrice: store.totalPrice() + store.itemPrice()(item),
+        items: store
+          .items()
+          .map((item) =>
+            item.product.id === productId
+              ? { ...item, quantity: Math.max(1, item.quantity - 1) }
+              : item
+          ),
+      });
+    },
+    removeItem: (productId: number) => {
+      patchState(store, {
+        items: store.items().filter((item) => item.product.id !== productId),
       });
     },
   })),
