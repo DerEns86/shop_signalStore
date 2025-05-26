@@ -1,8 +1,25 @@
-<div>
-  <h2>Warenkorb</h2>
-  @for (item of cartStore.items(); track item.product.id) {
-  <div>{{ item.product.title }} x {{ item.quantity }}</div>
-  }
+@if (isOpen()) {
+<div class="fixed inset-0 z-50 flex items-center justify-center bg-black/80">
+  <div class="bg-white rounded-lg shadow-lg w-full max-w-md p-6 relative">
+    <button
+      (click)="toggleCart()"
+      class="absolute top-6 right-6 text-gray-400 hover:text-gray-600 text-2xl"
+      aria-label="Close"
+    >
+      <span class="material-icons-outlined">close</span>
+    </button>
+    <h2 class="text-xl font-bold mb-4">Your Cart</h2>
 
-  <div>Gesamt: {{ cartStore.totalPrice() }} €</div>
+    <ng-content>
+      <div>
+        <h2>Warenkorb</h2>
+        @for (item of cartStore.items(); track item.product.id) {
+        <div>{{ item.product.title }} x {{ item.quantity }}</div>
+        }
+
+        <div>Gesamt: {{ cartStore.totalPrice() }} €</div>
+      </div>
+    </ng-content>
+  </div>
 </div>
+}
