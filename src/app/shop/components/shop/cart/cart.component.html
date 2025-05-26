@@ -1,6 +1,12 @@
 @if (isOpen()) {
-<div class="fixed inset-0 z-50 flex items-center justify-center bg-black/80">
-  <div class="bg-white rounded-lg shadow-lg w-full max-w-md p-6 relative">
+<div
+  class="fixed inset-0 z-40 flex items-center justify-center bg-black/80"
+  (click)="isOpen.set(false)"
+>
+  <div
+    class="bg-white rounded-lg shadow-lg w-full max-h-[90vh] max-w-3xl p-6 relative overflow-y-auto z-50"
+    (click)="$event.stopPropagation()"
+  >
     <button
       (click)="toggleCart()"
       class="absolute top-6 right-6 text-gray-400 hover:text-gray-600 text-2xl"
@@ -8,16 +14,54 @@
     >
       <span class="material-icons-outlined">close</span>
     </button>
-    <h2 class="text-xl font-bold mb-4">Your Cart</h2>
+    <h2 class="text-xl font-bold mb-4">Dein Warenkorb</h2>
 
     <ng-content>
       <div>
-        <h2>Warenkorb</h2>
         @for (item of cartStore.items(); track item.product.id) {
-        <div>{{ item.product.title }} x {{ item.quantity }}</div>
+        <div class="mt-8">
+          <div class="flex flex-col md:flex-row border-b border-gray-400 py-4">
+            <div class="flex-shrink-0">
+              <img
+                src="{{ item.product.image }}"
+                alt="Product image"
+                class="w-32 h-32 object-cover"
+              />
+            </div>
+            <div class="mt-4 md:mt-0 md:ml-6">
+              <h2 class="text-lg font-bold">{{ item.product.title }}</h2>
+              <p class="mt-2 text-gray-600">{{ item.product.description }}</p>
+              <div class="mt-4 flex items-center">
+                <span class="mr-2 text-gray-600">Quantity:</span>
+                <div class="flex items-center">
+                  <button
+                    class="bg-gray-200 rounded-l-lg px-2 py-1"
+                    (click)="
+                      item.quantity === 1
+                        ? removeItem(item.product.id)
+                        : decreaseQuantity(item.product.id)
+                    "
+                  >
+                    -
+                  </button>
+                  <span class="mx-2 text-gray-600">{{ item.quantity }}</span>
+                  <button
+                    class="bg-gray-200 rounded-r-lg px-2 py-1"
+                    (click)="increaseQuantity(item.product.id)"
+                  >
+                    +
+                  </button>
+                </div>
+                <span class="ml-auto font-bold"
+                  >${{ cartStore.itemPrice()(item) | number : "1.1-2" }}</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
         }
 
-        <div>Gesamt: {{ cartStore.totalPrice() }} €</div>
+        <div>Gesamt: {{ cartStore.totalPrice() | number : "1.1-2" }} €</div>
       </div>
     </ng-content>
   </div>

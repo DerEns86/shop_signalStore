@@ -23,9 +23,11 @@ export const CartStore = signalStore(
     itemPrice: computed(
       () => (item: CartItem) => item.product.price * item.quantity
     ),
+
     totalQuantity: computed(() =>
       store.items().reduce((sum, i) => sum + i.quantity, 0)
     ),
+
     totalPrice: computed(() =>
       store.items().reduce((sum, i) => sum + i.quantity * i.product.price, 0)
     ),
@@ -49,6 +51,7 @@ export const CartStore = signalStore(
         patchState(store, { items: [...store.items(), item] });
       }
     },
+
     increaseQuantity: (productId: number) => {
       patchState(store, {
         items: store
@@ -60,6 +63,7 @@ export const CartStore = signalStore(
           ),
       });
     },
+
     decreaseQuantity: (productId: number) => {
       patchState(store, {
         items: store
@@ -71,6 +75,7 @@ export const CartStore = signalStore(
           ),
       });
     },
+
     removeItem: (productId: number) => {
       patchState(store, {
         items: store.items().filter((item) => item.product.id !== productId),
