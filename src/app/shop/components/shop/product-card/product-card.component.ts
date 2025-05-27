@@ -33,6 +33,10 @@ export class ProductCardComponent {
   }
 
   addToCart(product: Product) {
-    this.cartStore.addItem({ product, quantity: 1 });
+    this.cartStore.addItem({
+      id: product.id,
+      product,
+      quantity: 1,
+    });
   }
 }
