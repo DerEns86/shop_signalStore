@@ -9,10 +9,11 @@ import { ProductStore } from '../../../stores/product.store';
 import { Router } from '@angular/router';
 import { UserStore } from '../../../../auth.store';
 import { CartStore } from '../../../stores/cart.store';
+import { CurrencyPipe } from '@angular/common';
 
 @Component({
   selector: 'app-product-card',
-  imports: [],
+  imports: [CurrencyPipe],
   templateUrl: './product-card.component.html',
   styleUrl: './product-card.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -4,12 +4,12 @@ import {
   inject,
   signal,
 } from '@angular/core';
-import { DecimalPipe } from '@angular/common';
+import { CurrencyPipe } from '@angular/common';
 import { CartStore } from '../../../stores/cart.store';
 
 @Component({
   selector: 'app-cart',
-  imports: [DecimalPipe],
+  imports: [CurrencyPipe],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

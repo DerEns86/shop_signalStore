@@ -52,16 +52,23 @@
                     +
                   </button>
                 </div>
-                <span class="ml-auto font-bold"
-                  >${{ cartStore.itemPrice()(item) | number : "1.1-2" }}</span
-                >
+                <span class="ml-auto font-bold">{{
+                  cartStore.itemPrice()(item)
+                    | currency : "EUR" : "symbol" : "1.2-2" : "de-DE"
+                }}</span>
               </div>
             </div>
           </div>
         </div>
         }
 
-        <div>Gesamt: {{ cartStore.totalPrice() | number : "1.1-2" }} €</div>
+        <div>
+          Gesamt:
+          {{
+            cartStore.totalPrice()
+              | currency : "EUR" : "symbol" : "1.2-2" : "de-DE"
+          }}
+        </div>
       </div>
     </ng-content>
   </div>
