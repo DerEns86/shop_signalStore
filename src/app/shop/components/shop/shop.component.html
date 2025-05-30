@@ -1,9 +1,13 @@
 @if (userStore.role() == 'Seller') {
-<button (click)="handleAddProduct()">
-  <span class="material-icons-round">add</span>
+<button
+  (click)="handleAddProduct()"
+  class="mt-4 ms-4 rounded-md border border-transparent bg-blue-600 px-3 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2"
+>
+  {{ showAddProduct() ? "Close" : "Add Product" }}
 </button>
 @if (showAddProduct()) {
-<app-add-product></app-add-product>} } @if (productStore.isLoading()) {
+<app-add-product />
+} } @if (productStore.isLoading()) {
 <div>
   <p>Produkte werden geladen...</p>
 </div>
