@@ -36,32 +36,35 @@
                 <div class="flex items-center">
                   <button
                     class="bg-gray-200 rounded-l-lg px-2 py-1"
-                    (click)="
-                      item.quantity === 1
-                        ? removeItem(item.product.id)
-                        : decreaseQuantity(item.product.id)
-                    "
+                    (click)="onHandleDecreaseQuantity(item, item.product.id)"
                   >
                     -
                   </button>
                   <span class="mx-2 text-gray-600">{{ item.quantity }}</span>
                   <button
                     class="bg-gray-200 rounded-r-lg px-2 py-1"
-                    (click)="increaseQuantity(item.product.id)"
+                    (click)="onHandleIncreaseQuantity(item.product.id)"
                   >
                     +
                   </button>
                 </div>
-                <span class="ml-auto font-bold"
-                  >${{ cartStore.itemPrice()(item) | number : "1.1-2" }}</span
-                >
+                <span class="ml-auto font-bold">{{
+                  cartStore.itemPrice()(item)
+                    | currency : "EUR" : "symbol" : "1.2-2" : "de-DE"
+                }}</span>
               </div>
             </div>
           </div>
         </div>
         }
 
-        <div>Gesamt: {{ cartStore.totalPrice() | number : "1.1-2" }} €</div>
+        <div>
+          Gesamt:
+          {{
+            cartStore.totalPrice()
+              | currency : "EUR" : "symbol" : "1.2-2" : "de-DE"
+          }}
+        </div>
       </div>
     </ng-content>
   </div>
