@@ -1,6 +1,18 @@
 # Shop
+---
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.10.
+This project addresses a challenge to develop an application with a strong emphasis on signal-based architecture for efficient data management. The core requirements focused on reactive programming paradigms, robust API integrations, and state management strategies.
+
+
+### Key Requirements
+
+* **Angular version <18**
+* **Signal-Based Architecture:**
+* **API Integrations:**
+* **Global Signal Store:**
+* **Local Signal Stores:**
+
+---
 
 ## Features
 
